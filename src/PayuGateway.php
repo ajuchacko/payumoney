@@ -2,9 +2,10 @@
 
 namespace Ajuchacko\Payu;
 
-use Exception;
 use Ajuchacko\Payu\Checksum;
 use Ajuchacko\Payu\Concerns\HasOptions;
+use Ajuchacko\Payu\HttpResponse;
+use Exception;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PayuGateway
@@ -65,17 +66,27 @@ class PayuGateway
      *
      * @var string
      */
-    public function getServiceUrl()
+    public function getPaymentUrl()
     {
         return $this->test_mode ? self::TEST_URL : self::PRODUCTION_URL;
     }
 
-    public function newChecksum(array $params): string
+    public function setParams(array $params): void
     {
         $this->params = $params;
+    }
 
-        $all_params = array_merge($params, [
-            'merchant_id' => $this->getMerchantId(),
+    public function getParams(): array
+    {
+        return $this->params;
+    }
+
+    public function newChecksum(array $params): string
+    {
+        $this->setParams($params);
+
+        $all_params = array_merge($this->getParams(), [
+            'merchant_key' => $this->getMerchantKey(),
             'secret_key'  => $this->getSecretKey(),
             'test_mode'   => $this->getTestMode(),
         ]);
@@ -83,6 +94,15 @@ class PayuGateway
         $this->checksum = Checksum::create($all_params);
 
         return $this->checksum->getHash();
+    }
+
+    public function pay(array $params)
+    {
+        $this->setParams($params);
+
+        $params = array_merge($params, ['hash' => $this->newChecksum($this->getParams()), 'key' => $this->getMerchantKey()]);
+
+        return HttpResponse::make($params, $this->getPaymentUrl());
     }
 
     public function toArray(): array

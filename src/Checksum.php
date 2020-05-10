@@ -12,19 +12,19 @@ class Checksum
     private $hash;
     private $test_mode;
     private $secret_key;
-    private $merchant_id;
+    private $merchant_key;
     private $parameter_string;
 
-    public function __construct(string $merchant_id, string  $secret_key, bool $test_mode)
+    public function __construct(string $merchant_key, string  $secret_key, bool $test_mode)
     {
-        $this->merchant_id = $merchant_id;
+        $this->merchant_key = $merchant_key;
         $this->secret_key = $secret_key;
         $this->test_mode = $test_mode;
     }
 
     public static function create(array $params): self
     {
-        $checksum = new self($params['merchant_id'], $params['secret_key'], $params['test_mode']);
+        $checksum = new self($params['merchant_key'], $params['secret_key'], $params['test_mode']);
 
         $checksum->validateRequiredParams($params);
 
@@ -44,7 +44,7 @@ class Checksum
             $this->getChecksumParams()
         );
 
-        $values = array_merge([$this->getMerchantId()], $values, [$this->getSecretKey()]);
+        $values = array_merge([$this->getMerchantKey()], $values, [$this->getSecretKey()]);
         return implode('|', $values);
     }
 
