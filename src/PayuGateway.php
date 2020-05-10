@@ -2,9 +2,12 @@
 
 namespace Ajuchacko\Payu;
 
+use Ajuchacko\Payu\Concerns\HasOptions;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PayuGateway {
+class PayuGateway
+{
+    use HasOptions;
 
 	const TEST_URL = 'https://sandboxsecure.payu.in/_payment';
 
@@ -47,36 +50,6 @@ class PayuGateway {
         $this->merchant_id = $options['merchant_id'];
         $this->secret_key = $options['secret_key'];
         $this->test_mode = $options['test_mode'];
-    }
-
-    /**
-     * Get MerchantId provided by payment gateway.
-     *
-     * @var string
-     */
-    public function getMerchantId()
-    {
-        return $this->merchantId;
-    }
-
-    /**
-     * Get Secret provided by payment gateway.
-     *
-     * @var string
-     */
-    public function getSecretKey()
-    {
-        return $this->secret_key;
-    }
-
-    /**
-     * Get the mode.
-     *
-     * @var bool
-     */
-    public function getTestMode()
-    {
-        return $this->test_mode;
     }
 
     /**
