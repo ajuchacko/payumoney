@@ -1,4 +1,17 @@
 {
+  "name": "ajuchacko/payumoney",
+  "description": "PayUMoney library for PHP",
+  "keywords": ["payu", "payuindia", "payumoney"],
+  "homepage": "http://github.com/ajuchacko91/payumoney-php",
+  "type": "library",
+  "version": "1.1",
+  "authors": [
+    {
+      "name": "Aju Chacko",
+      "email": "ajuchacko91@gmail.com",
+      "homepage": "http://github.com/ajuchacko91"
+    }
+  ],
     "require": {
         "phpunit/phpunit": "^8.5",
         "symfony/options-resolver": "^5.0",
