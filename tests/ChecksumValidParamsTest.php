@@ -13,15 +13,15 @@ class ChecksumValidParamsTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         $hash = Checksum::create([
-            "merchant_id" => "testMerchantId",
-            "secret_key"  => "testSecret",
-            "test_mode"   => true,
-            // 'txnid'       => $userDetails['id'], // string 30 characters
-            'amount'      => 12.00, // float
-            'productinfo' => 'Iphone', // string|json
-            'firstname'   => 'Jon Doe', // string(only alpha)
-            'email'       => 'jon@mail.com', // string
-            'phone'       => '9895309090', // string(only numeric)
+            'merchant_id' => 'testMerchantId',
+            'merchant_key'=> 'testMerchantKey',
+            'secret_key'  => 'testSecret',
+            'test_mode'   => true,
+            'amount'      => 12.00,
+            'productinfo' => 'Iphone',
+            'firstname'   => 'Jon Doe',
+            'email'       => 'jon@mail.com',
+            'phone'       => '9895309090',
             'surl'        => 'https://example.com/success',
             'furl'        => 'https://example.com/failure',
         ]);
@@ -32,9 +32,10 @@ class ChecksumValidParamsTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         $hash = Checksum::create([
-            "merchant_id" => "testMerchantId",
-            "secret_key"  => "testSecret",
-            "test_mode"   => true,
+            'merchant_id' => 'testMerchantId',
+            'merchant_key'=> 'testMerchantKey',
+            'secret_key'  => 'testSecret',
+            'test_mode'   => true,
             'txnid'       => 'thisIsUserProvidedTooLongTransactionId',
             'amount'      => 12.00,
             'productinfo' => 'Iphone',
@@ -51,9 +52,10 @@ class ChecksumValidParamsTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         $hash = Checksum::create([
-            "merchant_id" => "testMerchantId",
-            "secret_key"  => "testSecret",
-            "test_mode"   => true,
+            'merchant_id' => 'testMerchantId',
+            'merchant_key'=> 'testMerchantKey',
+            'secret_key'  => 'testSecret',
+            'test_mode'   => true,
             'txnid'       => 'zcvnlfjdkf324',
             'productinfo' => 'Iphone',
             'firstname'   => 'Jon Doe',
@@ -69,9 +71,10 @@ class ChecksumValidParamsTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         $hash = Checksum::create([
-            "merchant_id" => "testMerchantId",
-            "secret_key"  => "testSecret",
-            "test_mode"   => true,
+            'merchant_id' => 'testMerchantId',
+            'merchant_key'=> 'testMerchantKey',
+            'secret_key'  => 'testSecret',
+            'test_mode'   => true,
             'txnid'       => 'zcvnlfjdkf324',
             'amount'      => 12,
             'productinfo' => 'Iphone',
@@ -88,13 +91,13 @@ class ChecksumValidParamsTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         $hash = Checksum::create([
-            "merchant_id" => "testMerchantId",
-            "secret_key"  => "testSecret",
-            "test_mode"   => true,
+            'merchant_id' => 'testMerchantId',
+            'merchant_key'=> 'testMerchantKey',
+            'secret_key'  => 'testSecret',
+            'test_mode'   => true,
             'txnid'       => 'zcvnlfjdkf324',
             'amount'      => 12.00,
             'productinfo' => 'Iphone',
-            // 'firstname'   => 'Jon Doe',
             'email'       => 'jon@mail.com',
             'phone'       => '9895309090',
             'surl'        => 'https://example.com/success',
@@ -102,38 +105,19 @@ class ChecksumValidParamsTest extends TestCase
         ]);
     }
 
-    // function testFirstnameContainsOnlyAlphaCharacters()
-    // {
-    //     $this->expectException(InvalidArgumentException::class);
-
-    //     $hash = Checksum::create([
-    //         "merchant_id" => "testMerchantId",
-    //         "secret_key"  => "testSecret",
-    //         "test_mode"   => true,
-    //         'txnid'       => 'zcvnlfjdkf324',
-    //         'amount'      => 12.00,
-    //         'productinfo' => 'Iphone',
-    //         'firstname'   => 'Mr. Jon Doe',
-    //         'email'       => 'jon@mail.com',
-    //         'phone'       => '9895309090',
-    //         'surl'        => 'https://example.com/success',
-    //         'furl'        => 'https://example.com/failure',
-    //     ]);
-    // }
-
     function testEmailIsRequiredToCreateHash()
     {
         $this->expectException(InvalidArgumentException::class);
 
         $hash = Checksum::create([
-            "merchant_id" => "testMerchantId",
-            "secret_key"  => "testSecret",
-            "test_mode"   => true,
+            'merchant_id' => 'testMerchantId',
+            'merchant_key'=> 'testMerchantKey',
+            'secret_key'  => 'testSecret',
+            'test_mode'   => true,
             'txnid'       => 'zcvnlfjdkf324',
             'amount'      => 12.00,
             'productinfo' => 'Iphone',
             'firstname'   => 'Jon Doe',
-            // 'email'       => 'jon@mail.com',
             'phone'       => '9895309090',
             'surl'        => 'https://example.com/success',
             'furl'        => 'https://example.com/failure',
@@ -145,15 +129,15 @@ class ChecksumValidParamsTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         $hash = Checksum::create([
-            "merchant_id" => "testMerchantId",
-            "secret_key"  => "testSecret",
-            "test_mode"   => true,
+            'merchant_id' => 'testMerchantId',
+            'merchant_key'=> 'testMerchantKey',
+            'secret_key'  => 'testSecret',
+            'test_mode'   => true,
             'txnid'       => 'zcvnlfjdkf324',
             'amount'      => 12.00,
             'productinfo' => 'Iphone',
             'firstname'   => 'Jon Doe',
             'email'       => 'jon@mail.com',
-            // 'phone'       => '9895309090',
             'surl'        => 'https://example.com/success',
             'furl'        => 'https://example.com/failure',
         ]);
@@ -164,9 +148,10 @@ class ChecksumValidParamsTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         $hash = Checksum::create([
-            "merchant_id" => "testMerchantId",
-            "secret_key"  => "testSecret",
-            "test_mode"   => true,
+            'merchant_id' => 'testMerchantId',
+            'merchant_key'=> 'testMerchantKey',
+            'secret_key'  => 'testSecret',
+            'test_mode'   => true,
             'txnid'       => 'zcvnlfjdkf324',
             'amount'      => 12.00,
             'productinfo' => 'Iphone',
@@ -183,12 +168,12 @@ class ChecksumValidParamsTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         $hash = Checksum::create([
-            "merchant_id" => "testMerchantId",
-            "secret_key"  => "testSecret",
-            "test_mode"   => true,
+            'merchant_id' => 'testMerchantId',
+            'merchant_key'=> 'testMerchantKey',
+            'secret_key'  => 'testSecret',
+            'test_mode'   => true,
             'txnid'       => 'zcvnlfjdkf324',
             'amount'      => 12.00,
-            // 'productinfo' => 'Iphone',
             'firstname'   => 'Jon Doe',
             'email'       => 'jon@mail.com',
             'phone'       => '9895309090',
@@ -202,16 +187,16 @@ class ChecksumValidParamsTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         $hash = Checksum::create([
-            "merchant_id" => "testMerchantId",
-            "secret_key"  => "testSecret",
-            "test_mode"   => true,
+            'merchant_id' => 'testMerchantId',
+            'merchant_key'=> 'testMerchantKey',
+            'secret_key'  => 'testSecret',
+            'test_mode'   => true,
             'txnid'       => 'zcvnlfjdkf324',
             'amount'      => 12.00,
             'productinfo' => 'Iphone',
             'firstname'   => 'Jon Doe',
             'email'       => 'jon@mail.com',
             'phone'       => '9895309090',
-            // 'surl'        => 'https://example.com/success',
             'furl'        => 'https://example.com/failure',
         ]);
     }
@@ -221,9 +206,10 @@ class ChecksumValidParamsTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         $hash = Checksum::create([
-            "merchant_id" => "testMerchantId",
-            "secret_key"  => "testSecret",
-            "test_mode"   => true,
+            'merchant_id' => 'testMerchantId',
+            'merchant_key'=> 'testMerchantKey',
+            'secret_key'  => 'testSecret',
+            'test_mode'   => true,
             'txnid'       => 'zcvnlfjdkf324',
             'amount'      => 12.00,
             'productinfo' => 'Iphone',
@@ -231,7 +217,6 @@ class ChecksumValidParamsTest extends TestCase
             'email'       => 'jon@mail.com',
             'phone'       => '9895309090',
             'surl'        => 'https://example.com/success',
-            // 'furl'        => 'https://example.com/failure',
         ]);
     }
 }

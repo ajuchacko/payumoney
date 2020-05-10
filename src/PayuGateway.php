@@ -4,6 +4,8 @@ namespace Ajuchacko\Payu;
 
 use Ajuchacko\Payu\Checksum;
 use Ajuchacko\Payu\Concerns\HasOptions;
+use Ajuchacko\Payu\Enums\PaymentStatusType;
+use Ajuchacko\Payu\Exceptions\InvalidChecksumException;
 use Ajuchacko\Payu\HttpResponse;
 use Exception;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -103,6 +105,23 @@ class PayuGateway
         $params = array_merge($params, ['hash' => $this->newChecksum($this->getParams()), 'key' => $this->getMerchantKey()]);
 
         return HttpResponse::make($params, $this->getPaymentUrl());
+    }
+
+    public function getPaymentResponse($response)
+    {
+        if (! Checksum::valid($response, $this)) {
+            throw new InvalidChecksumException;
+        }
+
+        return PaymentResponse::make($response);
+    }
+
+    public function paymentSuccess($response)
+    {
+        $response = $this->getPaymentResponse($response);
+        if ($response->getStatus() === PaymentStatusType::STATUS_COMPLETED) {
+            return $response;
+        }
     }
 
     public function toArray(): array

@@ -12,9 +12,10 @@ class ChecksumTest extends TestCase
     function testCanGetValidParameterStringToGenerateHash()
     {
         $hash = Checksum::create([
-            "merchant_id" => "testMerchantId",
-            "secret_key"  => "testSecret",
-            "test_mode"   => true,
+            'merchant_id' => 'testMerchantId',
+            'secret_key'  => 'testSecret',
+            'merchant_key'=> 'testMerchantKey',
+            'test_mode'   => true,
             'txnid'       => 'zcvnlfjdkf324',
             'amount'      => 12.00,
             'productinfo' => 'Iphone',
@@ -25,7 +26,7 @@ class ChecksumTest extends TestCase
             'furl'        => 'https://example.com/failure',
         ]);
 
-        $this->assertEquals('testMerchantId|zcvnlfjdkf324|12|Iphone|Jon Doe|jon@mail.com|||||||||||testSecret',
+        $this->assertEquals('testMerchantKey|zcvnlfjdkf324|12|Iphone|Jon Doe|jon@mail.com|||||||||||testSecret',
             $hash->getStringFromHashGenerated());
     }
 
@@ -37,9 +38,10 @@ class ChecksumTest extends TestCase
             'udf3'        => 'udf three',
             'udf4'        => 'udf four',
             'udf5'        => 'udf five',
-            "merchant_id" => "testMerchantId",
-            "secret_key"  => "testSecret",
-            "test_mode"   => true,
+            'merchant_id' => 'testMerchantId',
+            'secret_key'  => 'testSecret',
+            'merchant_key'=> 'testMerchantKey',
+            'test_mode'   => true,
             'txnid'       => 'zcvnlfjdkf324',
             'amount'      => 12.00,
             'productinfo' => 'Iphone',
@@ -50,7 +52,7 @@ class ChecksumTest extends TestCase
             'furl'        => 'https://example.com/failure',
         ]);
 
-        $this->assertEquals('testMerchantId|zcvnlfjdkf324|12|Iphone|Jon Doe|jon@mail.com|udf one|udf two|udf three|udf four|udf five||||||testSecret',
+        $this->assertEquals('testMerchantKey|zcvnlfjdkf324|12|Iphone|Jon Doe|jon@mail.com|udf one|udf two|udf three|udf four|udf five||||||testSecret',
             $hash->getStringFromHashGenerated());
     }
 }
