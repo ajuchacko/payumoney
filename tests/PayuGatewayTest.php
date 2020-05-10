@@ -11,7 +11,8 @@ class PayuGatewayTest extends TestCase
     function setUp(): void
     {
         $params = [
-            "merchant_id" => "testMerchantId",
+            "merchant_id"  => "testMerchantId",
+            "merchant_key" => "testMerchantKey",
             "secret_key"  => "testSecret",
             "test_mode"   => true,
         ];
@@ -26,7 +27,35 @@ class PayuGatewayTest extends TestCase
 
     function testCanGetHashUsingPaymentParams()
     {
-        $params = [
+        $hash_one = $this->payu->newChecksum($this->validParams());
+        $hash_two = $this->payu->newChecksum($this->validParams());
+
+        $this->assertTrue(hash_equals($hash_one, $hash_two));
+    }
+
+    function testCanGetArrayOfAllParametersForPayment()
+    {
+        $hash = $this->payu->newChecksum($this->validParams());
+
+        $this->assertEquals([
+            'merchant_id' => 'testMerchantId',
+            'merchant_key'=> 'testMerchantKey',
+            'txnid'       => 'zcvnlfjdkf324',
+            'amount'      => 12.00,
+            'productinfo' => 'Iphone',
+            'firstname'   => 'Jon Doe',
+            'email'       => 'jon@mail.com',
+            'phone'       => '9895309090',
+            'surl'        => 'https://example.com/success',
+            'furl'        => 'https://example.com/failure',
+            'hash'        => $hash,
+            'sandbox'     => true,
+        ], $this->payu->toArray());
+    }
+
+    private function validParams(): array
+    {
+        return [
             'txnid'       => 'zcvnlfjdkf324',
             'amount'      => 12.00,
             'productinfo' => 'Iphone',
@@ -41,10 +70,5 @@ class PayuGatewayTest extends TestCase
             'udf4'        => 'udf four',
             'udf5'        => 'udf five',
         ];
-
-        $hash_one = $this->payu->newChecksum($params);
-        $hash_two = $this->payu->newChecksum($params);
-
-        $this->assertTrue(hash_equals($hash_one, $hash_two));
     }
 }

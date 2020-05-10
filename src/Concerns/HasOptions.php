@@ -14,6 +14,16 @@ trait HasOptions {
     }
 
     /**
+     * Get MerchantKey provided by payment gateway.
+     *
+     * @var string
+     */
+    public function getMerchantKey()
+    {
+        return $this->merchant_key;
+    }
+
+    /**
      * Get Secret provided by payment gateway.
      *
      * @var string
