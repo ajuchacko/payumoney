@@ -31,16 +31,19 @@ class PayuGatewayTest extends TestCase
         $payu = new PayuGateway($params);
 
         $params = [
-            'txnid'       => $userDetails['id'],
-            'amount'      => $userDetails['total_amount'],
-            'productinfo' => $userDetails['name'],
-            'firstname'   => $userDetails['name'],
-            'email'       => $userDetails['email'],
-            'phone'       => $mob,
-            'udf1'        => $userDetails['email'],
-            'udf2'        => $mob,
-            'surl'        => url('success'),
-            'furl'        => url('failure'),
+            'txnid'       => 'zcvnlfjdkf324',
+            'amount'      => 12.00,
+            'productinfo' => 'Iphone',
+            'firstname'   => 'Jon Doe',
+            'email'       => 'jon@mail.com',
+            'phone'       => '9895309090',
+            'surl'        => 'https://example.com/success',
+            'furl'        => 'https://example.com/failure',
+            'udf1'        => 'udf one',
+            'udf2'        => 'udf two',
+            'udf3'        => 'udf three',
+            'udf4'        => 'udf four',
+            'udf5'        => 'udf five',
         ];
 
 

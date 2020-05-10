@@ -56,6 +56,28 @@ class Checksum
                 throw new \InvalidArgumentException(sprintf('"%s" is a required param.', $requiredParam));
             }
         }
+
+        if ($this->getTestMode()) {
+            $this->additionalValidations($params);
+        }
+    }
+
+    private function additionalValidations(array $params)
+    {
+        if (!is_string($params['txnid']) || strlen($params['txnid']) > 30) {
+            $error = 'txnid must be string and may not be greater than 30 characters';
+            throw new \InvalidArgumentException(sprintf('"%s" is a required param.', 'txnid'));
+        }
+
+        if (!is_float($params['amount'])) {
+            $error = 'Amount must be float.' . gettype($params['amount']) . 'Given';
+            throw new \InvalidArgumentException(sprintf('"%s" is a required param.', $error));
+        }
+
+        if (!ctype_digit($params['phone'])) {
+            $error = 'Phone must only contain numeric values.';
+            throw new \InvalidArgumentException(sprintf('"%s" is a required param.', $error));
+        }
     }
 
     private function getChecksumParams()
