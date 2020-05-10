@@ -7,20 +7,8 @@ use PHPUnit\Framework\TestCase;
 
 class PayuGatewayTest extends TestCase
 {
-	function testCanInstantiatePaymentGateway()
-	{
-		$params = [
-			"merchant_id" => "testMerchantId",
-			"secret_key"  => "testSecret",
-			"test_mode"   => true,
-		];
 
-		$payu = new PayuGateway($params);
-
-		$this->assertInstanceOf(PayuGateway::class, $payu);
-	}
-
-    function CanCreateHashUsingPaymentParams()
+    function setUp(): void
     {
         $params = [
             "merchant_id" => "testMerchantId",
@@ -28,8 +16,16 @@ class PayuGatewayTest extends TestCase
             "test_mode"   => true,
         ];
 
-        $payu = new PayuGateway($params);
+        $this->payu = new PayuGateway($params);
+    }
 
+	function testCanInstantiatePaymentGateway()
+	{
+		$this->assertInstanceOf(PayuGateway::class, $this->payu);
+	}
+
+    function testCanGetHashUsingPaymentParams()
+    {
         $params = [
             'txnid'       => 'zcvnlfjdkf324',
             'amount'      => 12.00,
@@ -46,6 +42,9 @@ class PayuGatewayTest extends TestCase
             'udf5'        => 'udf five',
         ];
 
+        $hash_one = $this->payu->newChecksum($params);
+        $hash_two = $this->payu->newChecksum($params);
 
+        $this->assertTrue(hash_equals($hash_one, $hash_two));
     }
 }

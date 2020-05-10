@@ -2,6 +2,7 @@
 
 namespace Ajuchacko\Payu;
 
+use Ajuchacko\Payu\Checksum;
 use Ajuchacko\Payu\Concerns\HasOptions;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -34,6 +35,8 @@ class PayuGateway
      */
     private $test_mode;
 
+    private $checksum;
+
     /**
      * @param array $options
      */
@@ -62,4 +65,16 @@ class PayuGateway
         return $this->test_mode ? self::TEST_URL : self::PRODUCTION_URL;
     }
 
+    public function newChecksum(array $params): string
+    {
+        $all_params = array_merge($params, [
+            'merchant_id' => $this->getMerchantId(),
+            'secret_key'  => $this->getSecretKey(),
+            'test_mode'   => $this->getTestMode(),
+        ]);
+
+        $this->checksum = Checksum::create($all_params);
+
+        return $this->checksum->getHash();
+    }
 }

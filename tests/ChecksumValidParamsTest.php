@@ -22,8 +22,6 @@ class ChecksumValidParamsTest extends TestCase
             'firstname'   => 'Jon Doe', // string(only alpha)
             'email'       => 'jon@mail.com', // string
             'phone'       => '9895309090', // string(only numeric)
-            // 'udf1'        => $userDetails['email'],
-            // 'udf2'        => $mob,
             'surl'        => 'https://example.com/success',
             'furl'        => 'https://example.com/failure',
         ]);

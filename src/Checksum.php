@@ -80,7 +80,7 @@ class Checksum
         }
     }
 
-    private function getChecksumParams()
+    private function getChecksumParams(): array
     {
         return array_merge(
             ['txnid', 'amount', 'productinfo', 'firstname', 'email'],
@@ -93,5 +93,10 @@ class Checksum
     public function getStringFromHashGenerated(): string
     {
         return $this->parameter_string;
+    }
+
+    public function getHash(): string
+    {
+        return $this->hash;
     }
 }
