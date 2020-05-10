@@ -3,6 +3,7 @@
 namespace Ajuchacko\Payu;
 
 use Ajuchacko\Payu\Concerns\HasOptions;
+use Ajuchacko\Payu\Exceptions\InvalidParameterException;
 
 class Checksum
 {
@@ -53,7 +54,7 @@ class Checksum
 
         foreach ($requiredParams as $requiredParam) {
             if (!isset($params[$requiredParam])) {
-                throw new \InvalidArgumentException(sprintf('"%s" is a required param.', $requiredParam));
+                throw InvalidParameterException::create(sprintf('"%s" is a required param.', $requiredParam));
             }
         }
 
@@ -65,18 +66,16 @@ class Checksum
     private function additionalValidations(array $params)
     {
         if (!is_string($params['txnid']) || strlen($params['txnid']) > 30) {
-            $error = 'txnid must be string and may not be greater than 30 characters';
-            throw new \InvalidArgumentException(sprintf('"%s" is a required param.', 'txnid'));
+            throw InvalidParameterException::create('txnid must be string and may not be greater than 30 characters');
         }
 
         if (!is_float($params['amount'])) {
-            $error = 'Amount must be float.' . gettype($params['amount']) . 'Given';
-            throw new \InvalidArgumentException(sprintf('"%s" is a required param.', $error));
+            throw  InvalidParameterException::create('Amount must be float.' . gettype($params['amount']) . 'Given');
+
         }
 
         if (!ctype_digit($params['phone'])) {
-            $error = 'Phone must only contain numeric values.';
-            throw new \InvalidArgumentException(sprintf('"%s" is a required param.', $error));
+            throw  InvalidParameterException::create('Phone must only contain numeric values.');
         }
     }
 
