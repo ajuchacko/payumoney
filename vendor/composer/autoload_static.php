@@ -23,6 +23,7 @@ class ComposerStaticInitaa04bb9a74bc3bff158cf12bc9e07f2a
         'S' => 
         array (
             'Symfony\\Polyfill\\Ctype\\' => 23,
+            'Symfony\\Component\\OptionsResolver\\' => 34,
         ),
         'P' => 
         array (
@@ -32,6 +33,10 @@ class ComposerStaticInitaa04bb9a74bc3bff158cf12bc9e07f2a
         array (
             'Doctrine\\Instantiator\\' => 22,
             'DeepCopy\\' => 9,
+        ),
+        'A' => 
+        array (
+            'Ajuchacko\\Payu\\' => 15,
         ),
     );
 
@@ -50,6 +55,10 @@ class ComposerStaticInitaa04bb9a74bc3bff158cf12bc9e07f2a
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
+        'Symfony\\Component\\OptionsResolver\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/options-resolver',
+        ),
         'Prophecy\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy',
@@ -61,6 +70,10 @@ class ComposerStaticInitaa04bb9a74bc3bff158cf12bc9e07f2a
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
+        ),
+        'Ajuchacko\\Payu\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src',
         ),
     );
 
