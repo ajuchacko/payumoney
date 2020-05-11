@@ -1,7 +1,7 @@
 # PayUMoney Php
 
 
-Library for integrating payumoney easily to your laravel/php apps.
+Library for integrating payumoney easily to your laravel/php apps using simple interface.
 
 ## Installation
 
@@ -51,6 +51,8 @@ $payu->toArray(); // Returns array or parameters which can be submitted via web/
 
 ```php
 use Ajuchacko\Payu\PayuGateway;
+use Ajuchacko\Payu\Exceptions\PaymentFailedException;
+use Ajuchacko\Payu\Exceptions\InvalidChecksumException;
 
 $payu = new PayuGateway([
     "secret_key"  => "testSecret",
@@ -61,19 +63,19 @@ $payu = new PayuGateway([
 
 
 try {
+    
+    $response = $payu->paymentSuccess($request->all())
+    // $response->toArray();
+    // $response->txnid // retrive response params as attributes
+    
+} catch (PaymentFailedException $e) {
+
     $response = $payu->getPaymentResponse($request->all());
-    if ($response->getStatus() === PaymentStatusType::STATUS_COMPLETED) {
-        # code...
-    }
 
-    // OR
-
-    if ($response = $payu->paymentSuccess($request->all())) {
-        # code...
-    }
 } catch (InvalidChecksumException $e) {
-  // Checksum is tampered
+    // Checksum is tampered
 }
+
 ```
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

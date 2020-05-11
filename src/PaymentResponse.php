@@ -2,13 +2,14 @@
 
 namespace Ajuchacko\Payu;
 
+use Exception;
 use Ajuchacko\Payu\Enums\PaymentStatusType;
 
 class PaymentResponse
 {
     private $response;
 
-    public function __construct($response)
+    public function __construct(array $response)
     {
         $this->response = $response;
     }
@@ -20,17 +21,17 @@ class PaymentResponse
 
     public function getParams()
     {
-        return $this->params;
+        return $this->response;
     }
 
     public function getTransactionId()
     {
-        return isset($this->params['mihpayid']) ? (string) $this->params['mihpayid'] : null;
+        return isset($this->response['mihpayid']) ? (string) $this->response['mihpayid'] : null;
     }
 
     public function getTransactionStatus()
     {
-        return isset($this->params['status']) ? (string) $this->params['status'] : null;
+        return isset($this->response['status']) ? (string) $this->response['status'] : null;
     }
 
     public function getStatus()
@@ -46,5 +47,19 @@ class PaymentResponse
             default:
                 return PaymentStatusType::STATUS_FAILED;
         }
+    }
+
+    public function __get($name)
+    {
+        if (!isset($this->response[$name])) {
+             throw new Exception ("Response Parameter {$name} is not defined");
+        }
+
+        return $this->response[$name];
+    }
+
+    public function toArray()
+    {
+        return $this->response;
     }
 }

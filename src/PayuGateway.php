@@ -6,6 +6,7 @@ use Ajuchacko\Payu\Checksum;
 use Ajuchacko\Payu\Concerns\HasOptions;
 use Ajuchacko\Payu\Enums\PaymentStatusType;
 use Ajuchacko\Payu\Exceptions\InvalidChecksumException;
+use Ajuchacko\Payu\Exceptions\PaymentFailedException;
 use Ajuchacko\Payu\HttpResponse;
 use Exception;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -107,7 +108,7 @@ class PayuGateway
         return HttpResponse::make($params, $this->getPaymentUrl());
     }
 
-    public function getPaymentResponse($response)
+    public function getPaymentResponse(array $response)
     {
         if (! Checksum::valid($response, $this)) {
             throw new InvalidChecksumException;
@@ -116,12 +117,13 @@ class PayuGateway
         return PaymentResponse::make($response);
     }
 
-    public function paymentSuccess($response)
+    public function paymentSuccess(array $response)
     {
         $response = $this->getPaymentResponse($response);
         if ($response->getStatus() === PaymentStatusType::STATUS_COMPLETED) {
             return $response;
         }
+        throw new PaymentFailedException;
     }
 
     public function toArray(): array
