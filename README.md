@@ -51,6 +51,8 @@ See: https://stackoverflow.com/questions/47366514/what-are-the-current-payumoney
 ## Payment Response
 
 ```php
+<?php
+
 use Ajuchacko\Payu\PayuGateway;
 use Ajuchacko\Payu\Exceptions\PaymentFailedException;
 use Ajuchacko\Payu\Exceptions\InvalidChecksumException;
