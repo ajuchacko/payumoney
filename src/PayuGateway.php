@@ -4,6 +4,7 @@ namespace Ajuchacko\Payu;
 
 use Ajuchacko\Payu\Checksum;
 use Ajuchacko\Payu\Concerns\HasConfig;
+use Ajuchacko\Payu\Concerns\HasParams;
 use Ajuchacko\Payu\Enums\PaymentStatusType;
 use Ajuchacko\Payu\Exceptions\InvalidChecksumException;
 use Ajuchacko\Payu\Exceptions\PaymentFailedException;
@@ -13,7 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PayuGateway
 {
-    use HasConfig;
+    use HasConfig, HasParams;
 
 	const TEST_URL = 'https://sandboxsecure.payu.in/_payment';
 
@@ -74,16 +75,6 @@ class PayuGateway
         return $this->test_mode ? self::TEST_URL : self::PRODUCTION_URL;
     }
 
-    public function setParams(array $params): void
-    {
-        $this->params = $params;
-    }
-
-    public function getParams(): array
-    {
-        return $this->params;
-    }
-
     public function newChecksum(array $params): string
     {
         $this->setParams($params);
@@ -142,14 +133,5 @@ class PayuGateway
             'hash'        => $this->checksum->getHash(),
             'sandbox'     => $this->getTestMode(),
         ];
-    }
-
-    public function __get($name)
-    {
-        if (!isset($this->params[$name])) {
-             throw new Exception ("Property {$name} is not defined");
-        }
-
-        return $this->params[$name];
     }
 }
