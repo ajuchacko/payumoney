@@ -45,8 +45,8 @@ $payu->pay($params); // Redirects to PayUMoney
 $hash = $payu->newChecksum($params);
 $payu->toArray(); // Returns array or parameters which can be submitted via web/mobile app.
 
-[Test Credentials](https://stackoverflow.com/questions/47366514/what-are-the-current-payumoney-test-credentials/)
 ```
+Get: [Test Credentials](https://stackoverflow.com/questions/47366514/what-are-the-current-payumoney-test-credentials/)
 
 ## Payment Response
 
