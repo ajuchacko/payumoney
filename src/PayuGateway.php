@@ -3,7 +3,7 @@
 namespace Ajuchacko\Payu;
 
 use Ajuchacko\Payu\Checksum;
-use Ajuchacko\Payu\Concerns\HasOptions;
+use Ajuchacko\Payu\Concerns\HasConfig;
 use Ajuchacko\Payu\Enums\PaymentStatusType;
 use Ajuchacko\Payu\Exceptions\InvalidChecksumException;
 use Ajuchacko\Payu\Exceptions\PaymentFailedException;
@@ -13,7 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PayuGateway
 {
-    use HasOptions;
+    use HasConfig;
 
 	const TEST_URL = 'https://sandboxsecure.payu.in/_payment';
 

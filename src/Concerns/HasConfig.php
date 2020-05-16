@@ -2,7 +2,7 @@
 
 namespace Ajuchacko\Payu\Concerns;
 
-trait HasOptions {
+trait HasConfig {
     /**
      * Get MerchantId provided by payment gateway.
      *

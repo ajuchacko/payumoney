@@ -2,14 +2,14 @@
 
 namespace Ajuchacko\Payu;
 
-use Ajuchacko\Payu\Concerns\HasOptions;
+use Ajuchacko\Payu\Concerns\HasConfig;
 use Ajuchacko\Payu\Exceptions\InvalidParameterException;
 use Ajuchacko\Payu\ParameterValidator;
 use Ajuchacko\Payu\PayuGateway;
 
 class Checksum
 {
-    use HasOptions;
+    use HasConfig;
 
     private $hash;
     private $test_mode;
