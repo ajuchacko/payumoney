@@ -64,13 +64,12 @@ $payu = new PayuGateway([
     "test_mode"   => true,
 ]);
 
-
 try {
     
     $response = $payu->paymentSuccess($request->all())
     // $response->toArray();
     // $response->txnid // retrive response params as attributes
-    
+
 } catch (PaymentFailedException $e) {
 
     $response = $payu->getPaymentResponse($request->all());
