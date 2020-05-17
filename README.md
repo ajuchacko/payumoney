@@ -32,10 +32,10 @@ $params = [
 ];
 
 $payu = new PayuGateway([
-    "secret_key"  => "testSecret",
     "merchant_key"=> "testMerchantKey",
+    "secret_key"  => "testSecret",
     "merchant_id" => "7974556",
-    "test_mode"   => false,
+    "test_mode"   => true,
 ]);
 
 $payu->pay($params); // Redirects to PayUMoney
@@ -58,8 +58,8 @@ use Ajuchacko\Payu\Exceptions\PaymentFailedException;
 use Ajuchacko\Payu\Exceptions\InvalidChecksumException;
 
 $payu = new PayuGateway([
+    "merchant_key"=> "testMerchantKey",
     "secret_key"  => "testSecret",
-    "merchant_key"  => "testMerchantKey",
     "merchant_id" => "7974556",
     "test_mode"   => true,
 ]);
