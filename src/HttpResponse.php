@@ -6,12 +6,26 @@ use Symfony\Component\HttpFoundation\Response;
 
 class HttpResponse
 {
+    /**
+     * Creates new instance of Response and invokes
+     * 
+     * @param  array  $params
+     * @param  string $payment_url
+     * @return Symfony\Component\HttpFoundation\Response
+     */
     public static function make(array $params, $payment_url)
     {
         return (new self())->__invoke($params, $payment_url);
     }
 
-    public function __invoke(array $params, $payment_url)
+    /**
+     * Creates new Http response to submit
+     * 
+     * @param  array  $params
+     * @param  string $payment_url 
+     * @return Symfony\Component\HttpFoundation\Response;
+     */
+    public function __invoke(array $params, string $payment_url)
     {
         $params = array_map(function ($param) {
             return htmlentities($param, ENT_QUOTES, 'UTF-8', false);

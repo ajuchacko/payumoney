@@ -6,11 +6,27 @@ use Ajuchacko\Payu\Exceptions\InvalidParameterException;
 
 class ParameterValidator
 {
+    /**
+     * Validates the params provided
+     * 
+     * @param array $params
+     * @param bool  $test_mode
+     * @return void
+     */
     public static function validate(array $params, bool $test_mode)
     {
         return self::validateRequiredParams($params, $test_mode);
     }
 
+    /**
+     * Checks if all the required params are present
+     * 
+     * @param  array $params
+     * @param  bool  $test_mode
+     * @return void
+     * 
+     * @throws \InvalidParameterException
+     */
     private static function validateRequiredParams(array $params, bool $test_mode)
     {
         $requiredParams = ['txnid', 'amount', 'firstname', 'email', 'phone', 'productinfo', 'surl', 'furl'];
@@ -26,6 +42,14 @@ class ParameterValidator
         }
     }
 
+    /**
+     * Checks more fields are present in the params
+     * 
+     * @param  array $params
+     * @return void
+     * 
+     * @throws \InvalidParameterException
+     */
     private static function additionalValidations(array $params)
     {
         if (!is_string($params['txnid']) || strlen($params['txnid']) > 30) {

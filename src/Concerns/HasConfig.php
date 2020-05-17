@@ -6,7 +6,7 @@ trait HasConfig {
     /**
      * Get MerchantId provided by payment gateway.
      *
-     * @var string
+     * @return string
      */
     public function getMerchantId()
     {
@@ -16,7 +16,7 @@ trait HasConfig {
     /**
      * Get MerchantKey provided by payment gateway.
      *
-     * @var string
+     * @return string
      */
     public function getMerchantKey()
     {
@@ -26,7 +26,7 @@ trait HasConfig {
     /**
      * Get Secret provided by payment gateway.
      *
-     * @var string
+     * @return string
      */
     public function getSecretKey()
     {
@@ -36,7 +36,7 @@ trait HasConfig {
     /**
      * Get the mode.
      *
-     * @var bool
+     * @return bool
      */
     public function getTestMode()
     {

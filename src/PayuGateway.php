@@ -41,12 +41,25 @@ class PayuGateway
      */
     private $test_mode;
 
+    /**
+     * Generated checksum instance
+     *
+     * @var Ajuchacko\Payu\Checksum
+     */
     private $checksum;
 
+    /**
+     * Params provided
+     *
+     * @var array
+     */
     private $params;
 
     /**
-     * @param array $options
+     * Create an instance of PayuGateway
+     * 
+     * @param  array $options
+     * @return void
      */
     public function __construct(array $options)
     {
@@ -68,13 +81,19 @@ class PayuGateway
     /**
      * Get payment url.
      *
-     * @var string
+     * @return string
      */
     public function getPaymentUrl()
     {
         return $this->test_mode ? self::TEST_URL : self::PRODUCTION_URL;
     }
 
+    /**
+     * Creates a checksum
+     * 
+     * @param  array $params
+     * @return string
+     */
     public function newChecksum(array $params): string
     {
         $this->setParams($params);
@@ -89,7 +108,13 @@ class PayuGateway
 
         return $this->checksum->getHash();
     }
-
+    
+    /**
+     * Creates a Http Response to submit using the params
+     * 
+     * @param  array $params
+     * @return Symfony\Component\HttpFoundation\Response;
+     */
     public function pay(array $params)
     {
         $this->setParams($params);
@@ -98,7 +123,15 @@ class PayuGateway
 
         return HttpResponse::make($params, $this->getPaymentUrl());
     }
-
+    
+    /**
+     * Creates the payment response from the provided response array 
+     * 
+     * @param  array $response
+     * @return Ajuchacko\Payu\PaymentResponse
+     * 
+     * @throws Ajuchacko\Payu\Exceptions\InvalidChecksumException
+     */
     public function getPaymentResponse(array $response)
     {
         if (! Checksum::valid($response, $this)) {
@@ -107,7 +140,15 @@ class PayuGateway
 
         return PaymentResponse::make($response);
     }
-
+    
+    /**
+     * Checks payment has success status
+     * 
+     * @param  array $response
+     * @return Ajuchacko\Payu\PaymentResponse
+     * 
+     * @throws Ajuchacko\Payu\Exceptions\PaymentFailedException
+     */
     public function paymentSuccess(array $response)
     {
         $response = $this->getPaymentResponse($response);
@@ -116,7 +157,12 @@ class PayuGateway
         }
         throw new PaymentFailedException;
     }
-
+    
+    /**
+     * Converts instance to array
+     * 
+     * @return array
+     */
     public function toArray(): array
     {
         return [
