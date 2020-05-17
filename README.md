@@ -1,4 +1,4 @@
-# PayUMoney Php
+# PayuMoney Php
 
 
 Library for integrating payumoney easily to your laravel/php apps using simple interface.
